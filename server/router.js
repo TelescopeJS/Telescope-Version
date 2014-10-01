@@ -25,7 +25,7 @@ Router.map(function() {
         if(!!instance){ // if this is not the first log, update
           var result = Instances.update({_id: instance._id}, {$set: properties});
         } else { // else, add firstSeenAt timestamp and insert
-          var properties.firstSeenAt = new Date();
+          properties.firstSeenAt = new Date();
           var result = Instances.insert({$set: properties});
         }
         // console.log(result)
