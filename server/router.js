@@ -26,7 +26,7 @@ Router.map(function() {
           var result = Instances.update({_id: instance._id}, {$set: properties});
         } else { // else, add firstSeenAt timestamp and insert
           properties.firstSeenAt = new Date();
-          var result = Instances.insert({$set: properties});
+          var result = Instances.insert(properties);
         }
         // console.log(result)
       }
