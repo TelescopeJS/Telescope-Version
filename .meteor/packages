@@ -7,4 +7,4 @@ meteor-platform
 iron:router
 accounts-ui
 houston:admin
-
+percolatestudio:synced-cron

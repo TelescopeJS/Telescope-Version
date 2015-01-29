@@ -1,7 +1,6 @@
-Router.map(function() {
-  this.route('out', {
+Router.route('/', {
+    name: 'log',
     where: 'server',
-    path: '/',
     action: function(){
       var data = this.request.query;
       console.log(data)
@@ -11,7 +10,7 @@ Router.map(function() {
       this.response.end();
 
       // log request only if URL doesn't contain "localhost"
-      if(data.siteUrl.indexOf('localhost') == -1 && data.siteUrl.indexOf('0.0.0.0') == -1){
+      if(!!data.siteUrl){
         var instance = Instances.findOne({siteUrl: data.siteUrl});
         var properties = {
           siteUrl: data.siteUrl,
@@ -31,5 +30,4 @@ Router.map(function() {
         // console.log(result)
       }
     }
-  });
 });
