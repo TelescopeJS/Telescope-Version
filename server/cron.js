@@ -21,3 +21,9 @@ takeSnapshot = function () {
 Meteor.startup(function () {
   addJob();
 });
+
+Meteor.methods({
+  takeSnapshot: function () {
+    takeSnapshot();
+  }
+});
