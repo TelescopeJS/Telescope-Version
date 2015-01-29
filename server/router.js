@@ -10,7 +10,7 @@ Router.route('/', {
       this.response.end();
 
       // log request only if URL doesn't contain "localhost"
-      if(!!data.siteUrl){
+      if(!!data.siteUrl && data.siteUrl.indexOf('localhost') == -1 && data.siteUrl.indexOf('0.0.0.0') == -1){
         var instance = Instances.findOne({siteUrl: data.siteUrl});
         var properties = {
           siteUrl: data.siteUrl,
