@@ -24,12 +24,12 @@ takeSnapshot = function () {
       "User-Agent": "Telescopejs"
     }
   }).data;
-  snapshot.starsCount = repo.stargazers_count;
-  snapshot.forksCount = repo.forks_count;
+  snapshot.starsCount = parseInt(repo.stargazers_count);
+  snapshot.forksCount = parseInt(repo.forks_count);
 
   // visitors count
   var clickyUrl = 'http://api.clicky.com/api/stats/4?site_id=100538336&sitekey=e9ab6e3c1f515806&type=visitors&output=json&date=yesterday';
-  snapshot.visitorsCount = HTTP.get(clickyUrl).data[0].dates[0].items[0].value;
+  snapshot.visitorsCount = parseInt(HTTP.get(clickyUrl).data[0].dates[0].items[0].value);
 
   snapshot.date = new Date();
 
