@@ -16,9 +16,9 @@ Router.route('/', {
           siteUrl: data.siteUrl,
           currentVersion: data.currentVersion,
           siteTitle: data.siteTitle,
-          users: data.users,
-          posts: data.posts,
-          comments: data.comments,
+          users: parseInt(data.users),
+          posts: parseInt(data.posts),
+          comments: parseInt(data.comments),
           lastSeenAt: new Date()
         }
         if(!!instance){ // if this is not the first log, update

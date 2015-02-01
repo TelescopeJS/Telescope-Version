@@ -2,7 +2,7 @@ var addJob = function () {
   SyncedCron.add({
     name: 'takeSnapshot',
     schedule: function(parser) {
-      return parser.text('every day');
+      return parser.recur().on('09:00:00').time();
     }, 
     job: function() {
       takeSnapshot();
@@ -11,15 +11,37 @@ var addJob = function () {
 }
 
 takeSnapshot = function () {
-  var instancesCount = Instances.find().count();
-  Snapshots.insert({
-    date: new Date(),
-    instancesCount: instancesCount
-  });
+
+  var snapshot = {};
+
+  // instances count
+  snapshot.instancesCount = Instances.find().count();
+
+  // stars count
+  var gitHubUrl = 'https://api.github.com/repos/telescopejs/telescope';
+  var repo = HTTP.get(gitHubUrl, {
+    headers: {
+      "User-Agent": "Telescopejs"
+    }
+  }).data;
+  snapshot.starsCount = repo.stargazers_count;
+  snapshot.forksCount = repo.forks_count;
+
+  // visitors count
+  var clickyUrl = 'http://api.clicky.com/api/stats/4?site_id=100538336&sitekey=e9ab6e3c1f515806&type=visitors&output=json&date=yesterday';
+  snapshot.visitorsCount = HTTP.get(clickyUrl).data[0].dates[0].items[0].value;
+
+  snapshot.date = new Date();
+
+  console.log('// inserting snapshot…')
+  console.log(snapshot)
+
+  Snapshots.insert(snapshot);
 }
 
 Meteor.startup(function () {
   addJob();
+  SyncedCron.start();
 });
 
 Meteor.methods({
