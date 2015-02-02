@@ -6,6 +6,7 @@
 meteor-platform
 http
 
+momentjs:moment
 iron:router
 accounts-ui
 houston:admin

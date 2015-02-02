@@ -17,6 +17,10 @@ takeSnapshot = function () {
   // instances count
   snapshot.instancesCount = Instances.find().count();
 
+  // active instances count (seen in last month);
+  var oneMonthAgo = moment().subtract(1, 'months').toDate();
+  snapshot.activeCount = Instances.find({lastSeenAt: {$gte: oneMonthAgo}}).count();
+
   // stars count
   var gitHubUrl = 'https://api.github.com/repos/telescopejs/telescope';
   var repo = HTTP.get(gitHubUrl, {
