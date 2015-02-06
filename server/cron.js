@@ -22,7 +22,8 @@ takeSnapshot = function () {
   snapshot.activeCount = Instances.find({lastSeenAt: {$gte: oneMonthAgo}}).count();
 
   // stars count
-  var gitHubUrl = 'https://api.github.com/repos/telescopejs/telescope';
+  var gitHubUrl = 'https://api.github.com/repos/telescopejs/telescope?client_id='+Meteor.settings.gitHubClientId+'&client_secret='+Meteor.settings.gitHubClientSecret;
+
   var repo = HTTP.get(gitHubUrl, {
     headers: {
       "User-Agent": "Telescopejs"
